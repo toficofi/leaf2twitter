@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "58f3aa6eeb405c48b2d14070985b99318b4bd0f7fd766c13f0984f8db707ac15"
+            "sha256": "ed06818b6c7389fcfe9f6ae8f651ff59fe3c678560d9e4e09c3e32de92c5f9fc"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -32,6 +32,12 @@
             "index": "pypi",
             "version": "==3.0.4"
         },
+        "future": {
+            "hashes": [
+                "sha256:e39ced1ab767b5936646cedba8bcce582398233d6a627067d4c6a454c90cfedb"
+            ],
+            "version": "==0.16.0"
+        },
         "idna": {
             "hashes": [
                 "sha256:2c6a5de3089009e3da7c5dde64a141dbc8551d5b7f6cf4ed7c2568d0cc520a8f",
@@ -49,8 +55,23 @@
             "index": "pypi",
             "version": "==0.1.12"
         },
+        "oauthlib": {
+            "hashes": [
+                "sha256:09d438bcac8f004ae348e721e9d8a7792a9e23cd574634e973173344046287f5",
+                "sha256:909665297635fa11fe9914c146d875f2ed41c8c2d78e21a529dd71c0ba756508"
+            ],
+            "version": "==2.0.7"
+        },
         "pycarwings2": {
             "git": "https://github.com/jdhorne/pycarwings2.git"
+        },
+        "python-twitter": {
+            "hashes": [
+                "sha256:038c2af8131fab423e242386c7ee30334ef6b71cacea1c8f74f095a09cef6979",
+                "sha256:7a8583edd6a7fde3b84e8db7e7e68d80c146c628876bcbe9379a66212c5e8d0b"
+            ],
+            "index": "pypi",
+            "version": "==3.4.1"
         },
         "pyyaml": {
             "hashes": [
@@ -79,6 +100,13 @@
             ],
             "index": "pypi",
             "version": "==2.18.4"
+        },
+        "requests-oauthlib": {
+            "hashes": [
+                "sha256:50a8ae2ce8273e384895972b56193c7409601a66d4975774c60c2aed869639ca",
+                "sha256:883ac416757eada6d3d07054ec7092ac21c7f35cb1d2cf82faf205637081f468"
+            ],
+            "version": "==0.8.0"
         },
         "urllib3": {
             "hashes": [

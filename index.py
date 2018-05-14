@@ -1,31 +1,51 @@
 #!/usr/bin/python
 
 import pycarwings2
-import time
-from ConfigParser import SafeConfigParser
-import logging
-import sys
-import pprint
+import twitter
 import os
 
-logging.basicConfig(stream=sys.stdout, level=logging.ERROR)
-
+# Grab carwings auth from env var
 username = os.environ['CARWINGS_USERNAME']
 password = os.environ['CARWINGS_PASSWORD']
 
-logging.debug("login = %s , password = %s" % ( username , password)  )
-
-print "Prepare Session"
+# Initiate carwings session and grab battery status
 s = pycarwings2.Session(username, password , "NE")
-print "Login..."
-
 l = s.get_leaf()
 leaf_info = l.get_latest_battery_status()
 
+# Grab Twitter app keys from env vars
+consumer_key = os.environ['TWITTER_CONSUMER_KEY']
+consumer_secret = os.environ['TWITTER_CONSUMER_SECRET']
+access_token_key = os.environ['TWITTER_ACCESS_TOKEN_KEY']
+access_token_secret = os.environ['TWITTER_ACCESS_TOKEN_SECRET']
 
-print "is_charging %s" % leaf_info.is_charging
-print "is_quick_charging %s" % leaf_info.is_quick_charging
-print "is_connected %s" % leaf_info.is_connected
-print "is_connected_to_quick_charger %s" % leaf_info.is_connected_to_quick_charger
-print "leaf_info.battery_percent %s" % leaf_info.battery_percent
-print "leaf_info.cruising_range_ac_off_km %s" % leaf_info.cruising_range_ac_off_km
+
+# Initiate Twitter API
+api = twitter.Api(consumer_key=consumer_key,
+                  consumer_secret=consumer_secret,
+                  access_token_key=access_token_key,
+                  access_token_secret=access_token_secret)
+
+
+pluggedInText = 'Plugged in ' if leaf_info.is_charging else 'Unplugged'
+chargingText = "Not charging"
+
+if leaf_info.is_charging:
+    chargingText = "Slow charging"
+
+if leaf_info.is_quick_charging:
+    chargingText = "Rapid charging"
+
+# Convert the km to miles because that's how I like it
+kilometers = leaf_info.cruising_range_ac_off_km
+conversion_factor = 0.62137119
+
+miles = kilometers * conversion_factor
+
+capacityText = str(int(leaf_info.battery_percent)) + "% (" + str(int(miles)) + " miles)"
+
+# Some fun emoji
+text = u'\U0001F50C' + " " + pluggedInText + "\n" +u'\U000026A1' + " " + chargingText + "\n" +u'\U000026FD' + " " + capacityText + "\n" 
+
+# Tweet that shit
+api.PostUpdate(text)
