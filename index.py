@@ -44,6 +44,10 @@ miles = kilometers * conversion_factor
 
 capacityText = str(int(leaf_info.battery_percent)) + "% (" + str(int(miles)) + " miles)"
 
+print pluggedInText
+print chargingText
+print capacityText
+
 # Some fun emoji
 text = u'\U0001F50C' + " " + pluggedInText + "\n" +u'\U000026A1' + " " + chargingText + "\n" +u'\U000026FD' + " " + capacityText + "\n" 
 
